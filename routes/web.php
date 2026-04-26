@@ -197,6 +197,26 @@ Route::middleware(['auth'])->group(function () {
 
     Volt::route('/equipes/{equipe}/atribuir', 'equipes.atribuir')
         ->name('equipes.atribuir');
+
+    Route::middleware('challenges.enabled')->group(function () {
+        Volt::route('/desafios', 'desafios.index')
+            ->name('desafios.index');
+
+        Volt::route('/desafios/novo', 'desafios.create')
+            ->name('desafios.app.challenges.create');
+
+        Volt::route('/desafios/{challenge}', 'desafios.show')
+            ->name('desafios.app.challenges.show');
+
+        Volt::route('/desafios/{challenge}/registro', 'desafios.check-ins.create')
+            ->name('desafios.app.check-ins.create');
+
+        Volt::route('/desafios/{challenge}/ranking', 'desafios.ranking')
+            ->name('desafios.app.ranking');
+
+        Volt::route('/perfil/desafios', 'desafios.profile')
+            ->name('desafios.app.profile');
+    });
 });
 
 require __DIR__.'/auth.php';
